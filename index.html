@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html id="visdown" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Visdown - Markdown for Visualisation</title>
+    <meta name="description" content="Create Simple Visualisation Charts with Markdown">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="lib/vega.min.js"></script>
+    <script src="lib/vega-lite.min.js"></script>
+    <script src="lib/vega-embed.min.js"></script>
+    <script src="lib/marked.min.js"></script>
+    <script src="lib/yaml.min.js"></script>
+    
+    <style>
+      #visdown-output {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+    
+      #visdown-input {
+        display: none;
+      }
+    </style>  
+
+</head>
+<body>
+
+<div id="visdown-input">  
+  #Draft 0.1 - How number of 50 and 100  notes in circulation changed with economy.
+```vis
+
+width: 600
+data:
+  url: data/notes.csv
+layer:
+
+- mark: bar
+  encoding:
+    x:
+      field: year
+      type: N
+    y:
+      aggregate: sum
+      field: money
+      type: Q
+      axis:
+        grid: false
+        orient: left
+    color:
+      value: 66CC66
+    opacity:
+      value: 0.5
+
+- transform:
+  - filter: (datum.value == 50) || (datum.value == 100)
+  mark: 
+    type: point
+    
+  encoding:
+    x:
+      field: year
+      type: N
+    y:
+      
+      field: number
+      type: Q
+      axis:
+        grid: false
+        orient: right
+    color:
+      field: value
+resolve:
+  scale:
+    y: independent
+
+
+```
+    
+
+  
+    
+</div>
+<div id="visdown-output"></div>
+  
+<script src="visdown.js"></script>
+
+</body>
+</html>
