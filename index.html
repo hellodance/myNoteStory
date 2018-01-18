@@ -77,6 +77,68 @@ resolve:
 
 ```
     
+#Draft 0.2 - How number notes with value greater than 50 in circulation changed with economy.   
+    
+```vis
+
+width: 600
+data:
+  url: data/notes.csv
+layer:
+
+- mark: 
+   type: line
+   interpolate: monotone
+ 
+  encoding:
+    x:
+      field: year
+      type: N
+    y:
+      aggregate: sum
+      field: money
+      type: Q
+      axis:
+        grid: false
+        orient: left
+    color:
+      value: 5503e2
+    opacity:
+      value: 0.6
+
+- transform:
+  - filter: datum.value >= 50
+  mark: 
+    type: point
+    
+  encoding:
+    x:
+      field: year
+      type: N
+    y:
+      
+      field: number
+      type: Q
+      axis:
+        grid: false
+        orient: right
+    color:
+      field: value
+      type: N
+    shape:
+      field: value
+      type: N
+     
+     
+resolve:
+  scale:
+    y: independent
+
+
+```    
+    
+    
+    
 
   
     
